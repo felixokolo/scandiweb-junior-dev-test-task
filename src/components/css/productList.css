@@ -1,0 +1,10 @@
+.product-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(10em, 1fr));
+  -moz-column-gap: 1em;
+       column-gap: 1em;
+  row-gap: 1em;
+  -moz-column-width: 10em;
+       column-width: 10em;
+  align-items: center;
+}/*# sourceMappingURL=productList.css.map */

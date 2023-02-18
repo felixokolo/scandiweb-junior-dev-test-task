@@ -1,0 +1,28 @@
+body {
+  padding: 1em;
+}
+
+.product-card {
+  background: hsl(0, 0%, 95%);
+  display: block;
+  width: fit-content;
+  border-radius: .5em;
+  outline: .1em solid green;
+  padding-bottom: 2em;
+  width: 10em;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 1em;
+
+  p {
+    margin-top: .1em;
+    margin-bottom: .1em;
+    margin-left: auto;
+    margin-right: auto;
+    width: fit-content;
+  }
+
+  .delete-checkbox {
+    margin: 1em;
+  }
+}
