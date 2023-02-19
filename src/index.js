@@ -2,13 +2,15 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
-import HomePage from "./components/homePage";
+import HomePage from "./pages/homePage";
+import DVDForm from "./components/formDVD";
+import FurnitureForm from "./components/formFurniture";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(
   <React.StrictMode>
-    <HomePage />
+    <DVDForm />
   </React.StrictMode>
 );
 
