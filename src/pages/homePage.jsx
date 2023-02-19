@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import ProductList from "./productList";
+import ProductList from "../components/productList";
 import "./css/homePage.css";
 class HomePage extends Component {
   state = {};
