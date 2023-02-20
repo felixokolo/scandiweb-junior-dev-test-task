@@ -1,0 +1,50 @@
+.container {
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  outline: .2em solid green;
+  border-radius: .5em;
+  padding: 1em;
+  width: 35em;
+  margin-bottom: 2em;
+}
+
+input {
+  height: 3em;
+  border-radius: .5em;
+  margin-left: 3em;
+  margin-bottom: 2em;
+  outline: .2em solid green;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+  border-style: none;
+  width: 100%;
+}
+
+.warning {
+  color: red;
+  margin-left: .3em;
+}
+
+.warner {
+  outline: .2em solid red;
+}
+
+label {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 7em 15em auto;
+      grid-template-columns: 7em 15em auto;
+  -ms-flex-line-pack: center;
+      align-content: center;
+}
+
+label small {
+  text-align: center;
+}
+
+label input {
+  margin-left: auto;
+  margin-right: auto;
+}
+/*# sourceMappingURL=forms.css.map */

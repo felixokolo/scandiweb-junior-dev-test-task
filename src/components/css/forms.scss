@@ -1,0 +1,42 @@
+.container {
+  width: fit-content;
+  outline: .2em solid green;
+  border-radius: .5em;
+  padding: 1em;
+  width: 35em;
+  margin-bottom: 2em;
+}
+
+input {
+  height: 3em;
+  border-radius: .5em;
+  margin-left: 3em;
+  margin-bottom: 2em;
+  outline: .2em solid green;
+  box-shadow: none;
+  border-style: none;
+  width: 100%;
+}
+
+.warning {
+    color: red;
+    margin-left: .3em;
+}
+
+.warner {
+  outline: .2em solid red;
+}
+
+label {
+  display: grid;
+  grid-template-columns: 7em 15em auto;
+  align-content: center;
+  small {
+    text-align: center;
+  }
+  
+  input {
+    margin-left: auto;
+    margin-right: auto;
+  }
+}

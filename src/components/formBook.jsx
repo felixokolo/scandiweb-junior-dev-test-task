@@ -1,13 +1,11 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 import './css/forms.css'
-class DVDForm extends Component {
-  state = {
-    inputError: ''
-  };
-
+class BookForm extends Component {
+  state = {  }
   validate = (e) => {
-    const inputBox = window.document.getElementById('size');
+    const inputBox = e.target;
     const text = inputBox.value;
+
     if (isNaN(text)) {
       this.setState({...this.state, inputError: 'Kindly enter a valid number'})
       inputBox.classList.add('warner');
@@ -17,24 +15,22 @@ class DVDForm extends Component {
       inputBox.classList.remove('warner');
     }
   }
-  render() {
+  render() { 
     return (
-      <div id="DVD" className="container">
+      <div id="Book" className='container'>
         <form action="#">
           <div>
-            <label htmlFor="size">
-              <p>Size (MB)</p>
-              <input id="size" onKeyUp={this.validate} type="text" name="size" />
+            <label htmlFor="weight">
+              <p>Weight (KG)</p>
+              <input id='weight' onKeyUp={this.validate} type="text" name='weight'/>
               <small className="warning">{this.state['inputError']}</small><br />
             </label>
-            <p>
-              <h3>Please provide the size (capacity) of the DVD in MB (Mega-Bytes)</h3>
-            </p>
+            <h3>Please provide the weight in Kg of the book </h3>
           </div>
         </form>
       </div>
     );
   }
 }
-
-export default DVDForm;
+ 
+export default BookForm;

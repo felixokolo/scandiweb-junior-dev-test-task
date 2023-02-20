@@ -1,10 +1,15 @@
 .product-list {
+  display: -ms-grid;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(10em, 1fr));
-  -moz-column-gap: 1em;
-       column-gap: 1em;
+  -ms-grid-columns: (minmax(10em, 1fr))[auto-fit];
+      grid-template-columns: repeat(auto-fit, minmax(10em, 1fr));
+  -webkit-column-gap: 1em;
+          column-gap: 1em;
   row-gap: 1em;
-  -moz-column-width: 10em;
-       column-width: 10em;
-  align-items: center;
-}/*# sourceMappingURL=productList.css.map */
+  -webkit-column-width: 10em;
+          column-width: 10em;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+/*# sourceMappingURL=productList.css.map */

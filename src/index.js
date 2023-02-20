@@ -5,12 +5,14 @@ import reportWebVitals from "./reportWebVitals";
 import HomePage from "./pages/homePage";
 import DVDForm from "./components/formDVD";
 import FurnitureForm from "./components/formFurniture";
+import BookForm from "./components/formBook";
+import ProductAdd from "./components/formProductAdd";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(
   <React.StrictMode>
-    <DVDForm />
+    <ProductAdd />
   </React.StrictMode>
 );
 
