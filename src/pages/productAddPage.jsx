@@ -1,27 +1,38 @@
-import React, { Component, useEffect } from "react";
-import ProductList from "../components/productList";
-import "./css/homePage.css";
+import React, { Component } from "react";
+import "./css/productAddPage.css";
 import ProductAdd from "../components/formProductAdd";
+import { Link}
+from 'react-router-dom';
 class ProductAddPage extends Component {
   state = {};
   render() {
     document.title = "Product Add";
-    return (
+    return ( 
+      <React.Fragment>
       <form id="product_form" method="post" action="/server.php">
-        <div className="header">
-          <h1 className="heading">Product Add</h1>
-          <div className="buttons">
-            <input type="submit" value="Save" />
-            <button id="delete-product-btn">Cancel</button>
+        <div className="product-add-header">
+          <div className="cont">
+            <div className="title-buttons">
+              <h1 className="heading">Product Add</h1>
+              <div className="buttons">
+                <input type="submit" value="Save" />
+                <Link to="/">
+                <button id="delete-product-btn">Cancel</button>
+                </Link>
+              </div>
+            </div>
+              <hr />
           </div>
         </div>
-        <hr />
         <ProductAdd />
-        <div className="footer">
-          <hr />
-          <p>Scandiweb Test assignment</p>
-        </div>
       </form>
+      <div className="foot">
+          <div className="cont">
+            <hr/>
+            <p>Scandiweb Test assignment</p>
+          </div>
+      </div>
+      </React.Fragment>
     );
   }
 }

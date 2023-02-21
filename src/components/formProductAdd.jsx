@@ -4,7 +4,9 @@ import DVDForm from "./formDVD";
 import FurnitureForm from "./formFurniture";
 import BookForm from "./formBook";
 class ProductAdd extends Component {
-  empty = () => <div className="container  empty"></div>;
+  empty = () => <div className="container  empty">
+    <p>Select a product type</p>
+  </div>;
   state = {
     selected: this.empty(),
   };
@@ -24,7 +26,7 @@ class ProductAdd extends Component {
     const inputBox = e.target;
     const text = inputBox.value;
     if (isNaN(text)) {
-      states[inputBox.id] = "Kindly enter a valid number";
+      states[inputBox.id] = "Please, provide the data of indicated type";
       this.setState({ ...states });
       inputBox.classList.add("warner");
     } else {
@@ -44,29 +46,38 @@ class ProductAdd extends Component {
         <div className="container">
           <label htmlFor="sku">
             <p>SKU</p>
-            <input id={this.skuId} type="text" name="sku" />
-            <small className="warning">{this.state[this.skuId]}</small>
+            <div className="input-warning">
+              <input id={this.skuId} type="text" name="sku" />
+              <small className="warning">{this.state[this.skuId]}</small>
+            </div>
             <br />
           </label>
           <label htmlFor="name">
             <p>Name</p>
-            <input id={this.nameId} type="text" name="name" />
-            <small className="warning">{this.state[this.nameId]}</small>
+            <div className="input-warning">
+              <input id={this.nameId} type="text" name="name" />
+              <small className="warning">{this.state[this.nameId]}</small>
+            </div>
+            
             <br />
           </label>
           <label htmlFor="price">
             <p>Price ($)</p>
-            <input
-              id={this.priceId}
-              type="text"
-              onKeyUp={this.validate}
-              name="price"
-            />
-            <small className="warning">{this.state[this.priceId]}</small>
+            <div className="input-warning">
+              <input
+                id={this.priceId}
+                type="text"
+                onKeyUp={this.validate}
+                name="price"
+              />
+              <small className="warning">{this.state[this.priceId]}</small>
+            </div>
+            
             <br />
           </label>
           <label htmlFor="productType">
             <p>Type Switcher</p>
+            <div className="input-warning">
             <select
               name="productType"
               id="productType"
@@ -77,6 +88,8 @@ class ProductAdd extends Component {
               <option value="Furniture">Furniture</option>
               <option value="Book">Book</option>
             </select>
+            <small> </small>
+            </div>
           </label>
         </div>
         <div>{this.state["selected"]}</div>

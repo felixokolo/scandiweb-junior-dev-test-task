@@ -11,7 +11,7 @@ class DVDForm extends Component {
     if (isNaN(text)) {
       this.setState({
         ...this.state,
-        inputError: "Kindly enter a valid number",
+        inputError: "Please, provide the data of indicated type",
       });
       inputBox.classList.add("warner");
     } else {
@@ -22,24 +22,25 @@ class DVDForm extends Component {
   render() {
     return (
       <div id="DVD" className="container">
-        <form action="#">
           <div>
             <label htmlFor="size">
               <p>Size (MB)</p>
-              <input
+              <div className="input-warning">
+                <input
                 id="size"
                 onKeyUp={this.validate}
                 type="text"
                 name="size"
               />
               <small className="warning">{this.state["inputError"]}</small>
+              </div>
+              
               <br />
             </label>
             <h3>
               Please provide the size (capacity) of the DVD in MB (Mega-Bytes)
             </h3>
           </div>
-        </form>
       </div>
     );
   }

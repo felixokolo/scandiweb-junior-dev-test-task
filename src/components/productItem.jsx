@@ -21,7 +21,7 @@ class Product extends Component {
     const state = this.state;
     return (
       <div className="product-card">
-        <input type="checkbox" id={state.sku} class="delete-checkbox" />
+        <input type="checkbox" id={state.sku} className="delete-checkbox" />
         <p>{state.sku}</p>
         <p>{state.name}</p>
         <p>{state.price + " $"}</p>

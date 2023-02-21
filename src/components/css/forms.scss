@@ -8,14 +8,21 @@
 }
 
 .empty {
+  display: flex;
   background: #dfdfdf;
+  text-align: center;
+  width: 25em;
+
+  p {
+    margin: auto;
+  }
 }
 
 label input {
   height: 2em;
   border-radius: .5em;
   margin-left: 3em;
-  margin-bottom: 1em;
+  margin-bottom: 0;
   margin-top: 1em;
   outline: .2em solid green;
   box-shadow: none;
@@ -36,7 +43,7 @@ label input {
 
 label {
   display: grid;
-  grid-template-columns: 8em 15em auto;
+  grid-template-columns: 8em 16em;
   align-content: center;
 
   small {
@@ -47,8 +54,16 @@ label {
 
   p {
     margin-top: auto;
-    margin-bottom: auto;
   }
+
+
+  label[for=productType] {
+    p {
+      margin-top: auto;
+      margin-bottom: auto;
+    }
+  }
+
 
   select {
     margin-top: 1em;

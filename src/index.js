@@ -3,18 +3,31 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
 import HomePage from "./pages/homePage";
-import DVDForm from "./components/formDVD";
-import FurnitureForm from "./components/formFurniture";
-import BookForm from "./components/formBook";
-import ProductAdd from "./components/formProductAdd";
+import { BrowserRouter as Router, Routes, Route}
+    from 'react-router-dom';
 import ProductAddPage from "./pages/productAddPage";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
+function App(){
+
+  return (
+    <React.Fragment>
+      <Routes>
+          <Route path="/" element={ <HomePage/> } />
+          <Route path="addproduct" element={ <ProductAddPage/> } />
+      </Routes>
+    </React.Fragment>
+    
+  )
+}
+
+
+
 root.render(
-  <React.StrictMode>
-    <ProductAddPage />
-  </React.StrictMode>
+  <Router>
+    <App />
+  </Router>
 );
 
 // If you want to start measuring performance in your app, pass a function

@@ -9,7 +9,7 @@ class BookForm extends Component {
     if (isNaN(text)) {
       this.setState({
         ...this.state,
-        inputError: "Kindly enter a valid number",
+        inputError: "Please, provide the data of indicated type",
       });
       inputBox.classList.add("warner");
     } else {
@@ -22,13 +22,16 @@ class BookForm extends Component {
       <div id="Book" className="container">
         <label htmlFor="weight">
           <p>Weight (KG)</p>
-          <input
+          <div className="input-warning">
+            <input
             id="weight"
             onKeyUp={this.validate}
             type="text"
             name="weight"
           />
           <small className="warning">{this.state["inputError"]}</small>
+          </div>
+          
           <br />
         </label>
         <h3>Please provide the weight in Kg of the book </h3>

@@ -8,7 +8,7 @@ class ProductList extends Component {
     return (
       <div className="product-list">
         {this.state.list.map((product) => (
-          <Product {...product} />
+          <Product {...product} key={product.id} />
         ))}
       </div>
     );
