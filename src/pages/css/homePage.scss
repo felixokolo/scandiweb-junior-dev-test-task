@@ -15,7 +15,8 @@
   margin-top: auto;
   margin-bottom: .5em;
 
-  button {
+  button,
+  input[type=submit] {
     height: 2em;
     float: right;
     width: fit-content;

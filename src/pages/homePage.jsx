@@ -50,6 +50,9 @@ class HomePage extends Component {
     ];
     return (
       <div>
+        <head>
+          <title>Product List</title>
+        </head>
         <div className="header">
           <h1 className="heading">Product List</h1>
           <div className="buttons">

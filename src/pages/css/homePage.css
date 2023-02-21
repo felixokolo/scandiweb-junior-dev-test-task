@@ -1,43 +1,32 @@
 .header {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -ms-flex-line-pack: center;
-      align-content: center;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  align-content: center;
+  justify-content: center;
   padding-top: 1em;
 }
 
 .buttons {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
   float: right;
   margin-right: 0;
   margin-left: auto;
   padding-right: 5%;
-  height: -webkit-fit-content;
   height: -moz-fit-content;
   height: fit-content;
   margin-top: auto;
-  margin-bottom: .5em;
+  margin-bottom: 0.5em;
 }
-
-.buttons button {
+.buttons button,
+.buttons input[type=submit] {
   height: 2em;
   float: right;
-  width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
   margin-left: auto;
-  -webkit-box-shadow: .3em .3em;
-          box-shadow: .3em .3em;
-  border-radius: .5em;
+  box-shadow: 0.3em 0.3em;
+  border-radius: 0.5em;
   background: green;
 }
-
 .buttons #delete-product-btn {
   margin-left: 2em;
 }
@@ -46,7 +35,6 @@
   margin-bottom: 0;
   margin-top: 0;
   font-size: 2em;
-  width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
 }
@@ -60,5 +48,4 @@ hr {
 
 .footer {
   text-align: center;
-}
-/*# sourceMappingURL=homePage.css.map */
+}/*# sourceMappingURL=homePage.css.map */

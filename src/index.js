@@ -7,12 +7,13 @@ import DVDForm from "./components/formDVD";
 import FurnitureForm from "./components/formFurniture";
 import BookForm from "./components/formBook";
 import ProductAdd from "./components/formProductAdd";
+import ProductAddPage from "./pages/productAddPage";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(
   <React.StrictMode>
-    <ProductAdd />
+    <ProductAddPage />
   </React.StrictMode>
 );
 

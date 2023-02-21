@@ -1,50 +1,65 @@
 .container {
-  width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
-  outline: .2em solid green;
-  border-radius: .5em;
+  border-radius: 0.5em;
   padding: 1em;
   width: 35em;
+  min-height: 10em;
   margin-bottom: 2em;
 }
 
-input {
-  height: 3em;
-  border-radius: .5em;
+.empty {
+  background: #dfdfdf;
+}
+
+label input {
+  height: 2em;
+  border-radius: 0.5em;
   margin-left: 3em;
-  margin-bottom: 2em;
-  outline: .2em solid green;
-  -webkit-box-shadow: none;
-          box-shadow: none;
+  margin-bottom: 1em;
+  margin-top: 1em;
+  outline: 0.2em solid green;
+  box-shadow: none;
   border-style: none;
   width: 100%;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .warning {
   color: red;
-  margin-left: .3em;
+  margin-left: 0.3em;
 }
 
 .warner {
-  outline: .2em solid red;
+  outline: 0.2em solid red;
 }
 
 label {
-  display: -ms-grid;
   display: grid;
-  -ms-grid-columns: 7em 15em auto;
-      grid-template-columns: 7em 15em auto;
-  -ms-flex-line-pack: center;
-      align-content: center;
+  grid-template-columns: 8em 15em auto;
+  align-content: center;
 }
-
 label small {
   text-align: center;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+label p {
+  margin-top: auto;
+  margin-bottom: auto;
+}
+label select {
+  margin-top: 1em;
+  margin-bottom: 1em;
+  height: 2em;
+  outline: 0.2em solid green;
+  border-radius: 0.3em;
+  border: none;
 }
 
-label input {
-  margin-left: auto;
-  margin-right: auto;
-}
-/*# sourceMappingURL=forms.css.map */
+option {
+  font-style: italic;
+  font-weight: bold;
+  color: blue;
+}/*# sourceMappingURL=forms.css.map */
