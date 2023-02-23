@@ -1,5 +1,8 @@
 <?php
-echo 'hello felix';
+
+require_once "./models/storage_engine/include/db_config.php";
+require_once "./models/storage_engine/db_engine.php";
+/* echo 'hello felix';
 define("DB_HOST", "localhost");
 
 define("DB_USERNAME", "pheelix");
@@ -34,5 +37,10 @@ catch(Exception $e) {
             echo $e->getMessage();
             echo $query;
 
-        }	
-
+        }	 */
+try {
+    $db = new SQL_db($DB_HOST, $DB_USER, $DB_PASSWORD, $DB_NAME);
+}
+catch(Exception $e) {
+    echo $e -> getMessage();
+}
