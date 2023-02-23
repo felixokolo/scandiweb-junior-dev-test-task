@@ -5,12 +5,12 @@ class SQL_db
 
   public function __construct($DB_HOST, $DB_USER, $DB_PASSWORD, $DB_NAME) {
     //Attempt establishing a connection to the database using provided info
-    $this->$db_connection = new mysqli($DB_HOST, $DB_NAME, $DB_USER, $DB_PASSWORD);
+    $this->$db_connection = new mysqli($DB_HOST, $DB_USER, $DB_PASSWORD, $DB_NAME);
     $errno = $this->$db_connection -> connect_errno;
-    echo "hi there";
+
     
     if ($errno) {
-      throw new Exception("Could not connect to the database {$DB_NAME}. Exited witth {$errno}");
+      throw new Exception("{$hek} Could not connect to the database {$db_NAME}. Exited witth {$errno}");
     }
   }
 
@@ -20,7 +20,7 @@ class SQL_db
     if (!$result) {
       throw new Exception("Error processing query {$query}");
     }
-    return $result -> fetch_all();
+    return $result -> fetch_all(MYSQLI_ASSOC);
   }
   
 }

@@ -38,9 +38,13 @@ catch(Exception $e) {
             echo $query;
 
         }	 */
+$db = null;
 try {
-    $db = new SQL_db($DB_HOST, $DB_USER, $DB_PASSWORD, $DB_NAME);
+    $db = new SQL_db(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
 }
 catch(Exception $e) {
     echo $e -> getMessage();
 }
+
+$result = $db->query_db("SELECT * FROM products ORDER BY sku DESC");
+echo json_encode($result);
