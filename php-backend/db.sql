@@ -14,5 +14,5 @@ CREATE TABLE IF NOT EXISTS `id20324173_pheelix_products`.`products`(
 INSERT INTO `products`
 (`sku`, `name`, `price`, `type`, `description`) VALUES
 ('GGWP0007', 'War and Peace', '20.00', 'Book', 'Weight: 2KG'),
-('TR120555', 'Chair', '40.00', 'Furniture', 'Dimension: 24x45x15')
+('TR120555', 'Chair', '40.00', 'Furniture', 'Dimension: 24x45x15'),
 ('JVC200123', 'Acme Disc', 1.00, 'DVD', 'Size: 700 MB');

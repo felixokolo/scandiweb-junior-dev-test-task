@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import ProductList from "../components/productList";
-import { Link} from 'react-router-dom';
+import { Link } from "react-router-dom";
 import "./css/homePage.css";
 class HomePage extends Component {
   state = {};
@@ -104,10 +104,16 @@ class HomePage extends Component {
       },
     ];
 
+    const readApi = () => {
+      console.log("gets here");
+      fetch("localhost/php-backend/index.php")
+        .then((res) => res.text())
+        .then((res) => console.log(res));
+    };
+
     document.title = "Product List";
     return (
       <div id="homePage">
-        
         <div className="header">
           <div className="cont">
             <div className="title-buttons">
@@ -119,6 +125,7 @@ class HomePage extends Component {
                 <Link>
                   <button id="delete-product-btn">MASS DELETE</button>
                 </Link>
+                <button onClick={readApi}>api</button>
               </div>
             </div>
             <hr />
@@ -127,14 +134,13 @@ class HomePage extends Component {
         <div>
           <ProductList list={proucts} />
         </div>
-        
+
         <div className="foot">
           <div className="cont">
             <hr />
             <p>Scandiweb Test assignment</p>
           </div>
         </div>
-        
       </div>
     );
   }

@@ -7,96 +7,73 @@ body {
 #product_form {
   width: 100%;
 }
-
 #product_form .product-add-header {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  position: -webkit-sticky;
   position: sticky;
   top: 0;
   width: 100%;
   background: #e2f0de;
   margin: 0;
-  padding: .5em;
-  border-radius: .6em;
+  padding: 0.5em;
+  border-radius: 0.6em;
 }
-
 #product_form .product-add-header .cont {
   display: block;
   width: 100%;
 }
-
 #product_form .title-buttons {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
   width: 100%;
 }
-
 #product_form .buttons {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
   float: right;
   margin-right: 0;
   margin-left: auto;
   padding-right: 5%;
-  height: -webkit-fit-content;
   height: -moz-fit-content;
   height: fit-content;
   margin-top: auto;
-  margin-bottom: .5em;
+  margin-bottom: 0.5em;
 }
-
 #product_form .buttons button,
 #product_form .buttons input[type=submit] {
   height: 2em;
   float: right;
-  width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
   margin-left: auto;
-  -webkit-box-shadow: .3em .3em;
-          box-shadow: .3em .3em;
-  border-radius: .5em;
+  box-shadow: 0.3em 0.3em;
+  border-radius: 0.5em;
   border: none;
-  background: #a3c0a3;
-  outline: .1em solid green;
-  -webkit-box-shadow: .3em .3em green;
-          box-shadow: .3em .3em green;
+  background: rgb(163, 192, 163);
+  outline: 0.1em solid green;
+  box-shadow: 0.3em 0.3em green;
 }
-
 #product_form .buttons #delete-product-btn {
   margin-left: 2em;
 }
-
 #product_form .heading {
   margin-bottom: 0;
   margin-top: 0;
   font-size: 1.5em;
-  width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
   color: #205f55;
 }
 
 .foot {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
   position: fixed;
   bottom: 0;
   text-align: center;
   width: 100%;
   background: #f2f2f2;
-  border-radius: .5em;
+  border-radius: 0.5em;
 }
-
 .foot .cont {
   width: 100%;
 }
-
 .foot p {
   margin-left: auto;
   margin-right: auto;
@@ -111,5 +88,4 @@ hr {
   background: green;
   margin-top: 1em;
   margin-bottom: 1em;
-}
-/*# sourceMappingURL=productAddPage.css.map */
+}/*# sourceMappingURL=productAddPage.css.map */

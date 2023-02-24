@@ -3,31 +3,26 @@ body {
 }
 
 .product-card {
-  background: #f2f2f2;
+  background: hsl(0deg, 0%, 95%);
   display: block;
-  width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
-  border-radius: .5em;
-  outline: .1em solid green;
+  border-radius: 0.5em;
+  outline: 0.1em solid green;
   padding-bottom: 2em;
   width: 10em;
   margin-left: auto;
   margin-right: auto;
   margin-bottom: 1em;
 }
-
 .product-card p {
-  margin-top: .1em;
-  margin-bottom: .1em;
+  margin-top: 0.1em;
+  margin-bottom: 0.1em;
   margin-left: auto;
   margin-right: auto;
-  width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
 }
-
 .product-card .delete-checkbox {
   margin: 1em;
-}
-/*# sourceMappingURL=productItem.css.map */
+}/*# sourceMappingURL=productItem.css.map */

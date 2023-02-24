@@ -1,7 +1,8 @@
 <?php
 
-require_once "./models/storage_engine/include/db_config.php";
-require_once "./models/storage_engine/db_engine.php";
+require_once "./models/product.php";
+require_once __DIR__. "/models/include/session_config.php";
+
 /* echo 'hello felix';
 define("DB_HOST", "localhost");
 
@@ -38,13 +39,10 @@ catch(Exception $e) {
             echo $query;
 
         }	 */
-$db = null;
-try {
-    $db = new SQL_db(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
-}
-catch(Exception $e) {
-    echo $e -> getMessage();
-}
 
-$result = $db->query_db("SELECT * FROM products ORDER BY sku DESC");
-echo json_encode($result);
+
+
+$product1 = new Product("OLO1234", "Freda", 25.22, "DVD", "Size: 300MB");
+header("Content-Type: application/json");
+header("HTTP/1.1 200 OK");
+echo Product::get_products($db);
