@@ -1,11 +1,49 @@
 import React, { Component } from "react";
 import ProductList from "../components/productList";
-import { Link } from "react-router-dom";
+import { json, Link } from "react-router-dom";
 import "./css/homePage.css";
 class HomePage extends Component {
-  state = {};
+  constructor(props) {
+    super();
+    this.componentDidMount.bind();
+    this.state = {
+      error: null,
+      isLoaded: false,
+      products: [
+        /* {
+          sku: "JVC200123",
+          unit: { name: "Size", dim: "MB" },
+          name: "Acme DISC",
+          price: "7.0",
+          description: "Dimension: 24x45x15",
+        }, */
+      ],
+    };
+  }
+
+  componentDidMount() {
+    fetch("/php-backend/index.php")
+      .then((res) => res.text())
+      .then(
+        (res) => {
+          console.log(JSON.parse(res));
+          this.setState(
+            {
+              ...this.state,
+              error: null,
+              isLoaded: true,
+              products: JSON.parse(res),
+            },
+            () => console.log(this.state, "the main state")
+          );
+        },
+        (error) => {
+          this.setState({ ...this.state, error: error, isLoaded: false });
+        }
+      );
+  }
   render() {
-    const proucts = [
+    /* const proucts = [
       {
         id: 1,
         sku: "JVC200123",
@@ -102,14 +140,7 @@ class HomePage extends Component {
         price: "78.0",
         value: "28.5",
       },
-    ];
-
-    const readApi = () => {
-      console.log("gets here");
-      fetch("../php-backend/index.php")
-        .then((res) => res.text())
-        .then((res) => console.log(res));
-    };
+    ]; */
 
     document.title = "Product List";
     return (
@@ -125,14 +156,13 @@ class HomePage extends Component {
                 <Link>
                   <button id="delete-product-btn">MASS DELETE</button>
                 </Link>
-                <button onClick={readApi}>api</button>
               </div>
             </div>
             <hr />
           </div>
         </div>
-        <div>
-          <ProductList list={proucts} />
+        <div id="list-page">
+          <ProductList list={this.state["products"]} />
         </div>
 
         <div className="foot">

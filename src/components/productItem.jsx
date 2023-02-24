@@ -10,11 +10,8 @@ class Product extends Component {
       this.props.type === undefined
         ? "DVD-disc or Book or Furniture"
         : this.props.type,
-    value: this.props.value === undefined ? "5" : this.props.value,
-    unit:
-      this.props.unit === undefined
-        ? { name: "Size", dim: "MB" }
-        : this.props.unit,
+    description:
+      this.props.description === undefined ? "5" : this.props.description,
   };
 
   render() {
@@ -25,7 +22,7 @@ class Product extends Component {
         <p>{state.sku}</p>
         <p>{state.name}</p>
         <p>{state.price + " $"}</p>
-        <p>{state.unit.name + ": " + state.value + state.unit.dim}</p>
+        <p>{state.description}</p>
       </div>
     );
   }
