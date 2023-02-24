@@ -106,7 +106,7 @@ class HomePage extends Component {
 
     const readApi = () => {
       console.log("gets here");
-      fetch("localhost/php-backend/index.php")
+      fetch("../php-backend/index.php")
         .then((res) => res.text())
         .then((res) => console.log(res));
     };
