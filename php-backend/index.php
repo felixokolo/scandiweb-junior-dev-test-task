@@ -1,5 +1,6 @@
 <?php
 header('Access-Control-Allow-Origin: http://localhost:3000');
+header("Content-Type: application/json");
 require_once "./models/product.php";
 require_once __DIR__. "/models/include/session_config.php";
 
@@ -39,12 +40,16 @@ catch(Exception $e) {
             echo $query;
 
         }	 */
-if ($_SERVER['REQUEST_METHOD' === 'POST'])
+if ($_SERVER['REQUEST_METHOD'] === 'POST')
 {
-    echo json_encode(parse_url($_SERVER['REQUEST_URI']));
+    header("HTTP/1.1 200 OK");
+    echo file_get_contents('php://input');
 }
 
 //$product1 = new Product("OLO1234", "Freda", 25.22, "DVD", "Size: 300MB");
-else if (true){header("Content-Type: application/json");
+else if ($_SERVER['REQUEST_METHOD'] === 'GET'){
 header("HTTP/1.1 200 OK");
-echo Product::get_products($db);}
+echo Product::get_products($db);
+}
+
+//curl -H 'Content-Type: application/json' -X POST -d '{ "sku": "JVC2342", "name": "Alice and the wonder land", "price": 21.43, "type": "Book", "description": "Weight: 3KG"}' localhost:8000

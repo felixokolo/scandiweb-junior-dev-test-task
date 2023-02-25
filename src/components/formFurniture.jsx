@@ -2,25 +2,44 @@ import React, { Component } from 'react';
 import './css/forms.css'
 class FurnitureForm extends Component {
   state = { 
-
+    inputError: {
+      height: "Please, submit required data",
+      width: "Please, submit required data",
+      length: "Please, submit required data",
+    }
   } 
   heightId = 'height'
   widthId = 'width'
   lengthId = 'length'
   validate = (e) => {
-    let states = this.state
     const inputBox = e.target;
     const text = inputBox.value;
-    if (isNaN(text)) {
-      states[inputBox.id] = 'Please, provide the data of indicated type';
-      this.setState({...states})
-      inputBox.classList.add('warner');
+    const message = text === ""? "Please, submit required data" : "Please, provide the data of indicated type";
+    if (isNaN(text) || text === "") {
+      this.setState({
+        ...this.state,
+        inputError: {...this.state.inputError, [inputBox.id]: message},
+      });
+      inputBox.classList.add("warner");
+    } else {
+      this.setState({ ...this.state, inputError: "" });
+      this.setState({
+        ...this.state,
+        inputError: {...this.state.inputError, [inputBox.id]: ""},
+      }, () => {
+        if (this.state.inputError[this.heightId] === "" && 
+        this.state.inputError[this.widthId] === "" &&
+        this.state.inputError[this.lengthId] === "") {
+          delete this.props.inputErrors.dimensions;
+      this.props.setError(this.props.inputErrors);
     }
     else {
-      states[inputBox.id] = '';
-      this.setState({...states})
-      inputBox.classList.remove('warner');
+    this.props.setError({...this.props.inputErrors, dimensions: ""})
     }
+      });
+      inputBox.classList.remove("warner");
+    }
+    
   }
   render() { 
     return (

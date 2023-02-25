@@ -9,63 +9,104 @@ class ProductAdd extends Component {
   </div>;
   state = {
     selected: this.empty(),
+    errors: {...this.props.inputErrors},
   };
 
   types = {
     None: this.empty(),
-    DVD: <DVDForm />,
-    Furniture: <FurnitureForm />,
-    Book: <BookForm />,
+    DVD: <DVDForm setError={this.props['setError']} inputErrors={this.props.inputErrors} />,
+    Furniture: <FurnitureForm setError={this.props['setError']} inputErrors={this.props.inputErrors} />,
+    Book: <BookForm setError={this.props['setError']} inputErrors={this.props.inputErrors} />,
   };
   skuId = "sku";
   nameId = "name";
   priceId = "price";
   switcherId ="productType";
 
-  validate = (e) => {
-    let states = {};
+  validateNames = (e) => {
     const inputBox = e.target;
     const text = inputBox.value;
+    const message = text === ""? "Please, submit required data" : "Please, provide the data of indicated type";
+
+    if (inputBox.id === this.skuId || inputBox.id === this.nameId) {
+      if (text === "") {
+        /* this.setState({...this.state, errors:{...this.state.errors, [inputBox.id]: message,},},
+          () => {
+            this.props['setError'](this.state.errors);
+            console.log(this.props.inputErrors);
+          }); */
+          
+          this.props.setError({...this.props.inputErrors, [inputBox.id]: message});
+          
+        console.log(this.props.inputErrors);
+        inputBox.classList.add("warner");
+      }
+      else {
+        /* delete this.state.errors[inputBox.id];
+        this.props['setError'](this.state.errors); */
+        delete this.props.inputErrors[inputBox.id]
+        this.props.setError(this.props.inputErrors);
+        console.log(this.props.inputErrors);
+        inputBox.classList.remove("warner");
+      }
+    }
+  }
+
+  validate = (e) => {
+    const inputBox = e.target;
+    const text = inputBox.value;
+    const message = text === ""? "Please, submit required data" : "Please, provide the data of indicated type";
     if (inputBox.id === this.priceId){
     if ((isNaN(text) || text === "")) {
-      states[inputBox.id] = "Please, provide the data of indicated type";
-      this.props['setError'](states);
-      this.setState({selected: this.state['selected'], ...states });
-      inputBox.classList.add("warner");
-      //console.log(states);
+      /* this.setState({...this.state, errors:{...this.state.errors, [inputBox.id]: message,},},
+        () => {
+          this.props['setError'](this.state.errors);}); */
+      
+          this.props.setError({...this.props.inputErrors, [inputBox.id]: message});
+          console.log(this.props.inputErrors);
+          inputBox.classList.add("warner");
     } else {
-      delete this.state[inputBox.id];
-      delete states[inputBox.id];
-      this.props['setError'](states);
-      this.setState({selected: this.state['selected']}, () => {
-        console.log(this.state);
-      });
-      inputBox.classList.remove("warner");
+      /* delete this.state.errors[inputBox.id];
+        this.props['setError'](this.state.errors); */
+        delete this.props.inputErrors[inputBox.id]
+        this.props.setError(this.props.inputErrors);
+        console.log(this.props.inputErrors);
+        inputBox.classList.remove("warner");
       
     }}
-    if (inputBox.id === this.priceId){
-      if ((isNaN(text) || text === "")) {
-        states[inputBox.id] = "Please, provide the data of indicated type";
-        this.props['setError'](states);
-        this.setState({selected: this.state['selected'], ...states });
-        inputBox.classList.add("warner");
-        //console.log(states);
-      } else {
-        delete this.state[inputBox.id];
-        delete states[inputBox.id];
-        this.props['setError'](states);
-        this.setState({selected: this.state['selected']}, () => {
-          console.log(this.state);
-        });
-        inputBox.classList.remove("warner");
-        
-      }}
   };
 
   switcher = (e) => {
+    const inputBox = e.target;
+    const text = inputBox.value;
+    const message = "Please, submit required data";
     const selectedType = e.target.value;
+    if (text === "None") {
+      this.setState({...this.state, selected: this.types[selectedType], errors:{...this.state.errors, [inputBox.id]: message,},},
+        () => {
+          /* this.props['setError'](this.state.errors); */
+          this.props.setError({...this.props.inputErrors, [inputBox.id]: message});
+          console.log(this.props.inputErrors);
+        });
+          /* this.props.setError({...this.props.inputErrors, [inputBox.id]: message});
+          console.log(this.props.inputErrors); */
+    inputBox.classList.add("warner");
+
+  }
+  else {
     this.setState({ ...this.state, selected: this.types[selectedType] });
+    /* delete this.state.errors[inputBox.id];
+        this.props['setError'](this.state.errors); */
+        delete this.props.inputErrors[inputBox.id]
+        this.props.setError(this.props.inputErrors);
+          console.log(this.props.inputErrors);
+          inputBox.classList.remove("warner");
+  }
+  this.props['setError']({...this.props.inputErrors, dimensions: ""});
+
   };
+
+
   render() {
     return (
       <div>
@@ -73,16 +114,16 @@ class ProductAdd extends Component {
           <label htmlFor="sku">
             <p>SKU</p>
             <div className="input-warning">
-              <input id={this.skuId} type="text" name="sku" />
-              <small className="warning">{this.skuId in this.state ? this.state[this.skuId] : ""}</small>
+              <input id={this.skuId} type="text" name="sku" onKeyUp={this.validateNames}/>
+              <small className="warning">{this.skuId in this.props.inputErrors ? this.props.inputErrors[this.skuId] : ""}</small>
             </div>
             <br />
           </label>
           <label htmlFor="name">
             <p>Name</p>
             <div className="input-warning">
-              <input id={this.nameId} type="text" name="name" />
-              <small className="warning">{this.nameId in this.state ? this.state[this.nameId] : ""}</small>
+              <input id={this.nameId} type="text" name="name" onKeyUp={this.validateNames}/>
+              <small className="warning">{this.nameId in this.props.inputErrors ? this.props.inputErrors[this.nameId] : ""}</small>
             </div>
             
             <br />
@@ -96,7 +137,7 @@ class ProductAdd extends Component {
                 onKeyUp={this.validate}
                 name="price"
               />
-              <small className="warning">{this.priceId in this.state ? this.state[this.priceId] : ""}</small>
+              <small className="warning">{this.priceId in this.state.errors ? this.state.errors[this.priceId] : ""}</small>
             </div>
             
             <br />
@@ -114,7 +155,7 @@ class ProductAdd extends Component {
               <option value="Furniture">Furniture</option>
               <option value="Book">Book</option>
             </select>
-            <small> </small>
+            <small className="warning"> {this.state.errors[this.switcherId]} </small>
             </div>
           </label>
         </div>

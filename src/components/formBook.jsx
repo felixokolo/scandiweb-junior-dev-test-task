@@ -5,15 +5,18 @@ class BookForm extends Component {
   validate = (e) => {
     const inputBox = e.target;
     const text = inputBox.value;
-
-    if (isNaN(text)) {
+    const message = text === ""? "Please, submit required data" : "Please, provide the data of indicated type";
+    if (isNaN(text) || text === "") {
       this.setState({
         ...this.state,
-        inputError: "Please, provide the data of indicated type",
+        inputError: message,
       });
       inputBox.classList.add("warner");
+      this.props.setError({...this.props.inputErrors, dimensions: ""})
     } else {
       this.setState({ ...this.state, inputError: "" });
+      delete this.props.inputErrors.dimensions;
+      this.props.setError(this.props.inputErrors);
       inputBox.classList.remove("warner");
     }
   };
