@@ -3,67 +3,90 @@ body {
 }
 
 #homePage .header {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  align-content: center;
-  justify-content: center;
+  -ms-flex-line-pack: center;
+      align-content: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   padding-top: 1em;
+  position: -webkit-sticky;
   position: sticky;
   top: 0;
   width: 100%;
   background: #e2f0de;
   margin: 0;
-  padding: 0.5em;
-  border-radius: 0.6em;
+  padding: .5em;
+  border-radius: .6em;
 }
+
 #homePage .header .cont {
   display: block;
   width: 100%;
 }
+
 #homePage .header .buttons {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   float: right;
   margin-right: 0;
   margin-left: auto;
   padding-right: 5%;
+  height: -webkit-fit-content;
   height: -moz-fit-content;
   height: fit-content;
   margin-top: auto;
-  margin-bottom: 0.5em;
+  margin-bottom: .5em;
 }
+
 #homePage .header .buttons button,
 #homePage .header .buttons input[type=submit] {
   height: 2em;
   float: right;
+  width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
   margin-left: auto;
   border: none;
-  outline: 0.1em solid green;
-  box-shadow: 0.3em 0.3em green;
-  border-radius: 0.5em;
-  background: rgb(163, 192, 163);
+  outline: .1em solid green;
+  -webkit-box-shadow: .3em .3em green;
+          box-shadow: .3em .3em green;
+  border-radius: .5em;
+  background: #a3c0a3;
 }
+
 #homePage .header .buttons #delete-product-btn {
   margin-left: 2em;
 }
+
 #homePage .header .title-buttons {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   width: 100%;
 }
+
 #homePage .header .heading {
   margin-bottom: 0;
   margin-top: 0;
   font-size: 1.5em;
+  width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
   color: #205f55;
 }
+
 #homePage .header .foot {
   text-align: center;
 }
+
 #homePage .header .foot hr {
   height: 1px;
   background: green;
   margin-top: 1em;
   margin-bottom: 1em;
-}/*# sourceMappingURL=homePage.css.map */
+}
+/*# sourceMappingURL=homePage.css.map */

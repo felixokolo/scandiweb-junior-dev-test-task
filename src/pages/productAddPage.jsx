@@ -9,7 +9,7 @@ class ProductAddPage extends Component {
     document.title = "Product Add";
     return ( 
       <React.Fragment>
-      <form id="product_form" method="post" action="/server.php">
+      <form id="product_form" method="post" action="http://localhost:8000/index.php">
         <div className="product-add-header">
           <div className="cont">
             <div className="title-buttons">

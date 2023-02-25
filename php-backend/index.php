@@ -1,5 +1,5 @@
 <?php
-
+header('Access-Control-Allow-Origin: http://localhost:3000');
 require_once "./models/product.php";
 require_once __DIR__. "/models/include/session_config.php";
 
@@ -39,10 +39,12 @@ catch(Exception $e) {
             echo $query;
 
         }	 */
+if (count($_POST))
+{
+    echo json_encode(parse_url($_SERVER['QUERY_STRING']));
+}
 
-
-
-$product1 = new Product("OLO1234", "Freda", 25.22, "DVD", "Size: 300MB");
-header("Content-Type: application/json");
+//$product1 = new Product("OLO1234", "Freda", 25.22, "DVD", "Size: 300MB");
+else if (true){header("Content-Type: application/json");
 header("HTTP/1.1 200 OK");
-echo Product::get_products($db);
+echo Product::get_products($db);}

@@ -1,18 +1,22 @@
 .product-list {
+  display: -ms-grid;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(10em, 1fr));
-  -moz-column-gap: 1em;
-       column-gap: 1em;
+  -ms-grid-columns: (minmax(15em, 1fr))[auto-fit];
+      grid-template-columns: repeat(auto-fit, minmax(15em, 1fr));
+  -webkit-column-gap: 1em;
+          column-gap: 1em;
   row-gap: 1em;
-  -moz-column-width: 10em;
-       column-width: 10em;
-  align-items: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   margin-top: 2em;
   height: 50vh;
 }
+
 .product-list h2 {
   color: green;
   text-align: center;
   margin-top: auto;
   margin-bottom: auto;
-}/*# sourceMappingURL=productList.css.map */
+}
+/*# sourceMappingURL=productList.css.map */

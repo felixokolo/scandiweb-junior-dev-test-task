@@ -10,19 +10,33 @@ class HomePage extends Component {
       error: null,
       isLoaded: false,
       products: [
-        /* {
+        {
           sku: "JVC200123",
           unit: { name: "Size", dim: "MB" },
           name: "Acme DISC",
           price: "7.0",
           description: "Dimension: 24x45x15",
-        }, */
+        },
+        {
+          sku: "JVC200124",
+          unit: { name: "Size", dim: "MB" },
+          name: "Acme DISC",
+          price: "7.0",
+          description: "Dimension: 24x45x15",
+        },
+        {
+          sku: "JVC200125",
+          unit: { name: "Size", dim: "MB" },
+          name: "Acme DISC",
+          price: "7.0",
+          description: "Dimension: 24x45x15",
+        },
       ],
     };
   }
 
   componentDidMount() {
-    fetch("/php-backend/index.php")
+    fetch("http://localhost:8000/index.php")
       .then((res) => res.text())
       .then(
         (res) => {

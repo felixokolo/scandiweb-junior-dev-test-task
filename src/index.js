@@ -15,7 +15,7 @@ function App(){
     <React.Fragment>
       <Routes>
           <Route path="/" element={ <HomePage/> } />
-          <Route path="addproduct" element={ <ProductAddPage/> } />
+          <Route path="/addproduct" element={ <ProductAddPage/> } />
       </Routes>
     </React.Fragment>
     
