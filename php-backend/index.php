@@ -39,9 +39,9 @@ catch(Exception $e) {
             echo $query;
 
         }	 */
-if (count($_POST))
+if ($_SERVER['REQUEST_METHOD' === 'POST'])
 {
-    echo json_encode(parse_url($_SERVER['QUERY_STRING']));
+    echo json_encode(parse_url($_SERVER['REQUEST_URI']));
 }
 
 //$product1 = new Product("OLO1234", "Freda", 25.22, "DVD", "Size: 300MB");

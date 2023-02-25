@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import ProductList from "../components/productList";
-import { json, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "./css/homePage.css";
 class HomePage extends Component {
   constructor(props) {

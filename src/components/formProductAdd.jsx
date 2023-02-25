@@ -20,20 +20,46 @@ class ProductAdd extends Component {
   skuId = "sku";
   nameId = "name";
   priceId = "price";
+  switcherId ="productType";
 
   validate = (e) => {
-    let states = this.state;
+    let states = {};
     const inputBox = e.target;
     const text = inputBox.value;
-    if (isNaN(text)) {
+    if (inputBox.id === this.priceId){
+    if ((isNaN(text) || text === "")) {
       states[inputBox.id] = "Please, provide the data of indicated type";
-      this.setState({ ...states });
+      this.props['setError'](states);
+      this.setState({selected: this.state['selected'], ...states });
       inputBox.classList.add("warner");
+      //console.log(states);
     } else {
-      states[inputBox.id] = "";
-      this.setState({ ...states });
+      delete this.state[inputBox.id];
+      delete states[inputBox.id];
+      this.props['setError'](states);
+      this.setState({selected: this.state['selected']}, () => {
+        console.log(this.state);
+      });
       inputBox.classList.remove("warner");
-    }
+      
+    }}
+    if (inputBox.id === this.priceId){
+      if ((isNaN(text) || text === "")) {
+        states[inputBox.id] = "Please, provide the data of indicated type";
+        this.props['setError'](states);
+        this.setState({selected: this.state['selected'], ...states });
+        inputBox.classList.add("warner");
+        //console.log(states);
+      } else {
+        delete this.state[inputBox.id];
+        delete states[inputBox.id];
+        this.props['setError'](states);
+        this.setState({selected: this.state['selected']}, () => {
+          console.log(this.state);
+        });
+        inputBox.classList.remove("warner");
+        
+      }}
   };
 
   switcher = (e) => {
@@ -48,7 +74,7 @@ class ProductAdd extends Component {
             <p>SKU</p>
             <div className="input-warning">
               <input id={this.skuId} type="text" name="sku" />
-              <small className="warning">{this.state[this.skuId]}</small>
+              <small className="warning">{this.skuId in this.state ? this.state[this.skuId] : ""}</small>
             </div>
             <br />
           </label>
@@ -56,7 +82,7 @@ class ProductAdd extends Component {
             <p>Name</p>
             <div className="input-warning">
               <input id={this.nameId} type="text" name="name" />
-              <small className="warning">{this.state[this.nameId]}</small>
+              <small className="warning">{this.nameId in this.state ? this.state[this.nameId] : ""}</small>
             </div>
             
             <br />
@@ -70,7 +96,7 @@ class ProductAdd extends Component {
                 onKeyUp={this.validate}
                 name="price"
               />
-              <small className="warning">{this.state[this.priceId]}</small>
+              <small className="warning">{this.priceId in this.state ? this.state[this.priceId] : ""}</small>
             </div>
             
             <br />
