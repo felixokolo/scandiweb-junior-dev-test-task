@@ -1,5 +1,6 @@
 <?php
 header('Access-Control-Allow-Origin: http://localhost:3000');
+header('Access-Control-Allow-Headers: Content-Type');
 header("Content-Type: application/json");
 require_once "./models/product.php";
 require_once __DIR__. "/models/include/session_config.php";
@@ -43,7 +44,25 @@ catch(Exception $e) {
 if ($_SERVER['REQUEST_METHOD'] === 'POST')
 {
     header("HTTP/1.1 200 OK");
-    echo file_get_contents('php://input');
+    $in = json_decode(file_get_contents('php://input'), true);
+    try {
+    $product1 = new Product(stripslashes($in['sku']),
+                            stripslashes($in['name']),
+                            floatval($in['price']),
+                            stripslashes($in['type']),
+                            stripslashes($in['description']));
+    $resp = $product1->save($db);
+    header("HTTP/1.1 200 OK");
+    //header("Location: http://localhost:3000");
+    error_log($resp);
+    echo $resp;
+    }
+    catch(Exception $e) {
+        header("HTTP/1.1 500 " .$e->getMessage() );
+        echo json_encode(array("status" => "Error", "statusCode" => 400, "message" => $e->getMessage()));
+    }
+
+    
 }
 
 //$product1 = new Product("OLO1234", "Freda", 25.22, "DVD", "Size: 300MB");

@@ -10,7 +10,7 @@ class HomePage extends Component {
       error: null,
       isLoaded: false,
       products: [
-        {
+        /* {
           sku: "JVC200123",
           unit: { name: "Size", dim: "MB" },
           name: "Acme DISC",
@@ -30,26 +30,22 @@ class HomePage extends Component {
           name: "Acme DISC",
           price: "7.0",
           description: "Dimension: 24x45x15",
-        },
+        }, */
       ],
     };
   }
 
   componentDidMount() {
-    fetch("http://localhost:8000/index.php")
+    fetch("http://localhost/php-backend/index.php")
       .then((res) => res.text())
       .then(
         (res) => {
-          console.log(JSON.parse(res));
-          this.setState(
-            {
-              ...this.state,
-              error: null,
-              isLoaded: true,
-              products: JSON.parse(res),
-            },
-            () => console.log(this.state, "the main state")
-          );
+          this.setState({
+            ...this.state,
+            error: null,
+            isLoaded: true,
+            products: JSON.parse(res),
+          });
         },
         (error) => {
           this.setState({ ...this.state, error: error, isLoaded: false });

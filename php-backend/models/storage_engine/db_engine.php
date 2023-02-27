@@ -21,7 +21,10 @@ class SQL_db
     if (!$result) {
       throw new Exception("Error processing query {$query}");
     }
+    if (gettype($result) !== 'boolean')
     return $result -> fetch_all(MYSQLI_ASSOC);
+    else
+    return $result;
   }
   
 }
