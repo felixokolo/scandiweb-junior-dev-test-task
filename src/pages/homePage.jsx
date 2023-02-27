@@ -36,7 +36,7 @@ class HomePage extends Component {
   }
 
   componentDidMount() {
-    fetch("http://localhost/php-backend/index.php")
+    fetch("/php-backend/index.php")
       .then((res) => res.text())
       .then(
         (res) => {

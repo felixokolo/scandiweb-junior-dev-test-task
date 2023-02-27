@@ -58,17 +58,14 @@ class ProductAddPage extends Component {
       default:
         break;
     }
-    this.postData(
-      "http://localhost:8000/php-backend/index.php",
-      postDetails
-    ).then((dat) => {
+    this.postData("/php-backend/index.php", postDetails).then((dat) => {
       console.log(dat);
       if (dat.status !== "OK") {
         this.setState({
           ...this.state,
           inputErrors: { ...this.state.inputErrors, sku: dat.message },
         });
-      } else window.location.replace("http://localhost:3000");
+      } else window.location.replace("/");
     });
     //if (redir) window.location.replace("http://localhost:3000");
   };
