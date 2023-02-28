@@ -1,47 +1,23 @@
 <?php
-header('Access-Control-Allow-Origin: http://localhost');
+header('Access-Control-Allow-Origin: http://localhost:3000');
 header('Access-Control-Allow-Headers: Content-Type');
+header('Access-Control-Allow-Methods: GET, POST, DELETE');
 header("Content-Type: application/json");
 require_once "./models/product.php";
 require_once __DIR__. "/models/include/session_config.php";
 
-/* echo 'hello felix';
-define("DB_HOST", "localhost");
 
-define("DB_USERNAME", "pheelix");
-
-define("DB_PASSWORD", "");
-
-define("DB_DATABASE_NAME", "pheelix_products");
-$query = 'SELECT * FROM products';
-
-$connection = new mysqli(DB_HOST, DB_USERNAME, DB_PASSWORD, DB_DATABASE_NAME);
-
-            if ( $connection  -> connect_errno) {
-
-                echo 'error'. $connection -> connect_error;
-                exit();
-
-            }
-try {
-	$state = $connection->query( $query );
-            if($state === false) {
-
-                echo $query;
-
-            }
-
-echo json_encode($state -> fetch_all(MYSQLI_ASSOC));
-$state->close();
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_SERVER['PATH_INFO'] === '/delete') {
+    $in = json_decode(file_get_contents('php://input'), true);
+    error_log(json_encode($in));
+    if (count($in['selected']) > 0){
+    echo Product::delete_products($db, $in['selected']);
+    } else {
+        echo json_encode(array("status"=>"ERROR"));
+    }
 }
 
-catch(Exception $e) {
-
-            echo $e->getMessage();
-            echo $query;
-
-        }	 */
-if ($_SERVER['REQUEST_METHOD'] === 'POST')
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($_SERVER['PATH_INFO']))
 {
     header("HTTP/1.1 200 OK");
     $in = json_decode(file_get_contents('php://input'), true);
@@ -53,7 +29,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST')
                             stripslashes($in['description']));
     $resp = $product1->save($db);
     header("HTTP/1.1 200 OK");
-    //header("Location: http://localhost:3000");
     error_log($resp);
     echo $resp;
     }
@@ -65,7 +40,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST')
     
 }
 
-//$product1 = new Product("OLO1234", "Freda", 25.22, "DVD", "Size: 300MB");
 else if ($_SERVER['REQUEST_METHOD'] === 'GET'){
 header("HTTP/1.1 200 OK");
 echo Product::get_products($db);

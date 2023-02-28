@@ -12,13 +12,29 @@ class Product extends Component {
         : this.props.type,
     description:
       this.props.description === undefined ? "5" : this.props.description,
+    selected: {},
   };
 
   render() {
-    const state = this.state;
+    const state = { ...this.state };
+
+    const setSelected = (e) => {
+      const val = e.target.checked;
+      if (val) {
+        this.props.addSelected(e.target.id);
+      } else {
+        this.props.removeSelected(e.target.id);
+      }
+    };
+
     return (
       <div className="product-card">
-        <input type="checkbox" id={state.sku} className="delete-checkbox" />
+        <input
+          type="checkbox"
+          id={state.sku}
+          className="delete-checkbox"
+          onChange={setSelected}
+        />
         <p>{state.sku}</p>
         <p>{state.name}</p>
         <p>{state.price + " $"}</p>

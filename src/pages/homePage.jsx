@@ -9,34 +9,16 @@ class HomePage extends Component {
     this.state = {
       error: null,
       isLoaded: false,
-      products: [
-        /* {
-          sku: "JVC200123",
-          unit: { name: "Size", dim: "MB" },
-          name: "Acme DISC",
-          price: "7.0",
-          description: "Dimension: 24x45x15",
-        },
-        {
-          sku: "JVC200124",
-          unit: { name: "Size", dim: "MB" },
-          name: "Acme DISC",
-          price: "7.0",
-          description: "Dimension: 24x45x15",
-        },
-        {
-          sku: "JVC200125",
-          unit: { name: "Size", dim: "MB" },
-          name: "Acme DISC",
-          price: "7.0",
-          description: "Dimension: 24x45x15",
-        }, */
-      ],
+      selected: {},
+      setSelected: (val) => {
+        this.setState({ ...this.state, selected: val });
+      },
+      products: [],
     };
   }
 
-  componentDidMount() {
-    fetch("/php-backend/index.php")
+  fetchdb = (url) => {
+    fetch(url)
       .then((res) => res.text())
       .then(
         (res) => {
@@ -51,107 +33,38 @@ class HomePage extends Component {
           this.setState({ ...this.state, error: error, isLoaded: false });
         }
       );
-  }
-  render() {
-    /* const proucts = [
-      {
-        id: 1,
-        sku: "JVC200123",
-        unit: { name: "Size", dim: "MB" },
-        name: "Acme DISC",
-        price: "7.0",
-        value: "700",
-      },
-      {
-        id: 2,
-        sku: "JVC200124",
-        unit: { name: "Weight", dim: "Kg" },
-        name: "Chemistry",
-        price: "78.0",
-        value: "28.5",
-      },
-      {
-        id: 3,
-        sku: "JVC200124",
-        unit: { name: "Weight", dim: "Kg" },
-        name: "Chemistry",
-        price: "78.0",
-        value: "28.5",
-      },
-      {
-        id: 4,
-        sku: "JVC200123",
-        unit: { name: "Size", dim: "MB" },
-        name: "Acme DISC",
-        price: "7.0",
-        value: "700",
-      },
-      {
-        id: 5,
-        sku: "JVC200124",
-        unit: { name: "Weight", dim: "Kg" },
-        name: "Chemistry",
-        price: "78.0",
-        value: "28.5",
-      },
-      {
-        id: 6,
-        sku: "JVC200124",
-        unit: { name: "Weight", dim: "Kg" },
-        name: "Chemistry",
-        price: "78.0",
-        value: "28.5",
-      },
-      {
-        id: 7,
-        sku: "JVC200123",
-        unit: { name: "Size", dim: "MB" },
-        name: "Acme DISC",
-        price: "7.0",
-        value: "700",
-      },
-      {
-        id: 8,
-        sku: "JVC200124",
-        unit: { name: "Weight", dim: "Kg" },
-        name: "Chemistry",
-        price: "78.0",
-        value: "28.5",
-      },
-      {
-        id: 9,
-        sku: "JVC200124",
-        unit: { name: "Weight", dim: "Kg" },
-        name: "Chemistry",
-        price: "78.0",
-        value: "28.5",
-      },
-      {
-        id: 10,
-        sku: "JVC200123",
-        unit: { name: "Size", dim: "MB" },
-        name: "Acme DISC",
-        price: "7.0",
-        value: "700",
-      },
-      {
-        id: 11,
-        sku: "JVC200124",
-        unit: { name: "Weight", dim: "Kg" },
-        name: "Chemistry",
-        price: "78.0",
-        value: "28.5",
-      },
-      {
-        id: 12,
-        sku: "JVC200124",
-        unit: { name: "Weight", dim: "Kg" },
-        name: "Chemistry",
-        price: "78.0",
-        value: "28.5",
-      },
-    ]; */
+  };
 
+  componentDidMount() {
+    this.fetchdb("/php-backend/index.php");
+    document
+      .getElementById("delete-product-btn")
+      .addEventListener("click", this.delete);
+  }
+
+  delete = () => {
+    fetch("/php-backend/index.php/delete", {
+      crossDomain: true,
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+
+      body: JSON.stringify({ selected: Object.keys(this.state.selected) }),
+    })
+      .then((res) => res.json())
+      .then(
+        (res) => {
+          if (res.status === "OK") {
+            this.fetchdb("/php-backend/index.php");
+          } else {
+          }
+        },
+        (error) => {}
+      );
+  };
+
+  render() {
     document.title = "Product List";
     return (
       <div id="homePage">
@@ -163,16 +76,19 @@ class HomePage extends Component {
                 <Link to="addproduct">
                   <button>ADD</button>
                 </Link>
-                <Link>
-                  <button id="delete-product-btn">MASS DELETE</button>
-                </Link>
+                <button id="delete-product-btn" onClick={this.delete}>
+                  MASS DELETE
+                </button>
               </div>
             </div>
             <hr />
           </div>
         </div>
         <div id="list-page">
-          <ProductList list={this.state["products"]} />
+          <ProductList
+            list={this.state["products"]}
+            setSelected={this.state.setSelected}
+          />
         </div>
 
         <div className="foot">

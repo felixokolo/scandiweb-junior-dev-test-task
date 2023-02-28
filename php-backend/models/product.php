@@ -28,11 +28,9 @@ class Product {
 		
 		try {
 			$res = $db -> query_db("SELECT sku FROM products WHERE sku='{$this -> sku}'");
-			//error_log($res);
 			if (!$res) {
 				$que = "INSERT INTO products (sku, name, price, type, description) VALUES ".
 				"('{$this -> sku}', '{$this -> name}', '{$this -> price}', '{$this -> type}', '{$this -> description}')";
-				//echo $que;
 				$res = $db -> query_db($que);
 				if ($res) {
 					return json_encode(array("status" => "OK", "statusCode" => 200));
@@ -53,6 +51,15 @@ class Product {
 
 	static public function get_products($db) {
 		$result = $db->query_db("SELECT * FROM products ORDER BY sku DESC");
+		return json_encode($result);
+	}
+
+	static public function delete_products($db, $items) {
+		$params = [];
+		foreach ($items as $val) {
+			array_push($params, "sku = '{$val}'");
+		}
+		$result = $db->query_db("DELETE FROM products WHERE ". join(' OR ', $params));
 		return json_encode($result);
 	}
 

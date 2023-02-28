@@ -18,7 +18,6 @@ class BookForm extends Component {
       this.props.setError({ dimensions: "" });
     } else {
       this.setState({ ...this.state, inputError: "" });
-      //delete this.props.inputErrors.dimensions;
       this.props.setError({});
       inputBox.classList.remove("warner");
     }

@@ -38,7 +38,6 @@ class FurnitureForm extends Component {
             this.state.inputError[this.widthId] === "" &&
             this.state.inputError[this.lengthId] === ""
           ) {
-            //delete this.props.inputErrors.dimensions;
             this.props.setError({});
           } else {
             this.props.setError({ dimensions: "" });

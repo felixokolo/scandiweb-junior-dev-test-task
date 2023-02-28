@@ -23,8 +23,9 @@ class SQL_db
     }
     if (gettype($result) !== 'boolean')
     return $result -> fetch_all(MYSQLI_ASSOC);
-    else
-    return $result;
+    else if ($result)
+    return array("status" => "OK", "statusCode" => 200);
+    else return array("status" => "Error", "statusCode" => 400, "message" => $e->getMessage());
   }
   
 }

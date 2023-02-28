@@ -23,10 +23,7 @@ class ProductAddPage extends Component {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        /* "Access-Control-Allow-Origin":
-          "http://localhost:8000/php-backend/index.php", */
       },
-      //mode: "no-cors",
 
       body: JSON.stringify(data),
     }).then((res) => res.json());
@@ -59,7 +56,6 @@ class ProductAddPage extends Component {
         break;
     }
     this.postData("/php-backend/index.php", postDetails).then((dat) => {
-      console.log(dat);
       if (dat.status !== "OK") {
         this.setState({
           ...this.state,
@@ -67,7 +63,6 @@ class ProductAddPage extends Component {
         });
       } else window.location.replace("/");
     });
-    //if (redir) window.location.replace("http://localhost:3000");
   };
   render() {
     document.title = "Product Add";
