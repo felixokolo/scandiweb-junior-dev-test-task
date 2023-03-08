@@ -36,14 +36,18 @@ class HomePage extends Component {
   };
 
   componentDidMount() {
-    this.fetchdb("/php-backend/index.php");
+    this.fetchdb("http://localhost:8000/php-backend/index.php");
     document
       .getElementById("delete-product-btn")
       .addEventListener("click", this.delete);
   }
 
-  delete = () => {
-    fetch("/php-backend/index.php/delete", {
+  delete = (e) => {
+    e.preventDefault();
+    Object.keys(this.state.selected).forEach((ele) => {
+      document.getElementById(ele).remove();
+    });
+    fetch("http://localhost:8000/php-backend/index.php/delete", {
       crossDomain: true,
       method: "POST",
       headers: {
@@ -56,7 +60,7 @@ class HomePage extends Component {
       .then(
         (res) => {
           if (res.status === "OK") {
-            this.fetchdb("/php-backend/index.php");
+            this.fetchdb("http://localhost:8000/php-backend/index.php");
           } else {
           }
         },
@@ -68,28 +72,32 @@ class HomePage extends Component {
     document.title = "Product List";
     return (
       <div id="homePage">
-        <div className="header">
-          <div className="cont">
-            <div className="title-buttons">
-              <h1 className="heading">Product List</h1>
-              <div className="buttons">
-                <Link to="addproduct">
-                  <button>ADD</button>
-                </Link>
-                <button id="delete-product-btn" onClick={this.delete}>
-                  MASS DELETE
-                </button>
+        <form action="" onSubmit={this.delete}>
+          <div className="header">
+            <div className="cont">
+              <div className="title-buttons">
+                <h1 className="heading">Product List</h1>
+                <div className="buttons">
+                  <Link to="addproduct">
+                    <button>ADD</button>
+                  </Link>
+                  <input
+                    type="submit"
+                    value="MASS DELETE"
+                    id="delete-product-btn"
+                  />
+                </div>
               </div>
+              <hr />
             </div>
-            <hr />
           </div>
-        </div>
-        <div id="list-page">
-          <ProductList
-            list={this.state["products"]}
-            setSelected={this.state.setSelected}
-          />
-        </div>
+          <div id="list-page">
+            <ProductList
+              list={this.state["products"]}
+              setSelected={this.state.setSelected}
+            />
+          </div>
+        </form>
 
         <div className="foot">
           <div className="cont">

@@ -1,66 +1,102 @@
 <?php
+require_once __DIR__. "/storage_engine/db_engine.php";
 
+abstract class Product {
+	protected $sku;
+	protected $name;
+	protected $price;
+	protected $db;
 
-
-class Product {
-
-	public function __construct($sku, $name, $price, $type, $description) {
-
-		if (!(
-		gettype($sku) === "string" &&
-		gettype($name) === "string" &&
-		gettype($price) === "double" &&
-		gettype($type) === "string" &&
-		gettype($description) === "string")) {
-			throw new Exception("Data type error. Requires (string, string, double, string, string) but got "
-								.gettype($sku) .gettype($name) .gettype($price) .gettype($type) .gettype($description));
-		}
-
-		$this -> sku = $sku;
-		$this -> name = $name;
-		$this -> price = $price;
-		$this -> type = $type;
-		$this -> description = $description;
-	}
-
-	public function save($db) {
 	
-		
-		try {
-			$res = $db -> query_db("SELECT sku FROM products WHERE sku='{$this -> sku}'");
-			if (!$res) {
-				$que = "INSERT INTO products (sku, name, price, type, description) VALUES ".
-				"('{$this -> sku}', '{$this -> name}', '{$this -> price}', '{$this -> type}', '{$this -> description}')";
-				$res = $db -> query_db($que);
-				if ($res) {
-					return json_encode(array("status" => "OK", "statusCode" => 200));
-
+	public function __set($name, $value)
+	{
+			switch ($name)
+			{
+				case 'sku':
+				case 'name':
+					if (gettype($value) !== 'string' || $value === '' || $value === null)
+						throw new Exception("Invalid {$name}");
+					else
+						$this->$name  = $value;
+					break;
+				case 'price':
+					if (gettype($value) !== 'double' || $value === null)
+						throw new Exception("Invalid {$name}");
+					else
+					{
+						$this->$name  = $value;
+					}
+					break;
+				case 'size':
+				case 'height':
+				case 'width':
+				case 'length':
+				case 'weight':
+					if ((gettype($value) !== 'integer' && gettype($value) !== 'double') || $value === null)
+						throw new Exception("Invalid {$name}");
+					else
+					{
+						$this->$name  = $value;
+					}
+					break;
+				
 				}
-				else
-					throw new Exception('Error occured while querying db');
-			}
-			else 
-				throw new Exception('SKU exists');
+
 		
+	}
+
+	public function __get($name) {
+		return $this -> $name;
+	}
+
+	public function __construct($sku, $name, $price) {
+		$this -> __set('sku', $sku);
+		$this -> __set('name', $name);
+		$this -> __set('price', $price);
+		try {
+			$this -> db = new SQL_db(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
 		}
-		catch (Exception $e) {
-			return json_encode(array("status" => "Error", "statusCode" => 400, "message" => $e->getMessage()));
+			catch(Exception $e) {
+			echo $e -> getMessage();
 		}
 	}
 
+	abstract function getDescription();
 
-	static public function get_products($db) {
-		$result = $db->query_db("SELECT * FROM products ORDER BY sku DESC");
-		return json_encode($result);
-	}
 
-	static public function delete_products($db, $items) {
-		$params = [];
-		foreach ($items as $val) {
-			array_push($params, "sku = '{$val}'");
+
+	public function save() {
+
+		$res = NULL;
+		try {
+			$res = $this -> db -> get($this -> sku);
+			//error_log(json_encode($res));
 		}
-		$result = $db->query_db("DELETE FROM products WHERE ". join(' OR ', $params));
-		return json_encode($result);
+		catch (Exception $e)
+		{
+			error_log($e -> getMessage());
+		}
+
+		if ($res === NULL)
+		{
+
+			try
+			{
+				$que = "INSERT INTO products (sku, name, price, type, description) VALUES ".
+				"('{$this -> sku}', '{$this -> name}', '{$this -> price}', '{$this -> type}', '{$this -> getDescription()}')";
+				$result = $this -> db -> query_db($que);
+				return $result;
+			}
+				catch (Exception $e)
+				{
+					return array("status" => "Error", "statusCode" => 400, "message" => $e->getMessage());
+				}
+		}
+		else
+		{
+			return array("status" => "Error", "statusCode" => 400, "message" => 'SKU exists');
+		}
 	}
+
 
 }

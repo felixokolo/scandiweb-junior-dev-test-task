@@ -176,14 +176,10 @@ class ProductAdd extends Component {
 
             <br />
           </label>
-          <label htmlFor="productType">
+          <label htmlFor="type">
             <p>Type Switcher</p>
             <div className="input-warning">
-              <select
-                name="productType"
-                id="productType"
-                onChange={this.switcher}
-              >
+              <select name="type" id="productType" onChange={this.switcher}>
                 <option value="None">None</option>
                 <option value="DVD">DVD</option>
                 <option value="Furniture">Furniture</option>

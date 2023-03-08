@@ -32,30 +32,18 @@ class ProductAddPage extends Component {
   addProduct = (e) => {
     e.preventDefault();
     const details = e.target;
+    console.log(details);
     let postDetails = {};
-    postDetails["sku"] = details.sku.value;
-    postDetails["name"] = details.name.value;
-    postDetails["price"] = parseFloat(details.price.value).toFixed(2);
-    postDetails["type"] = details.productType.value;
-    switch (postDetails["type"]) {
-      case "DVD":
-        postDetails["description"] = `Size: ${details.size.value} MB`;
-        break;
-
-      case "Book":
-        postDetails["description"] = `Weight: ${details.weight.value}KG`;
-        break;
-
-      case "Furniture":
-        postDetails[
-          "description"
-        ] = `Dimensions: ${details.height.value}x${details.width.value}x${details.length.value}`;
-        break;
-
-      default:
-        break;
+    let n = 2;
+    while (details[n] !== undefined) {
+      postDetails[details[n].name] = details[n].value;
+      n++;
     }
-    this.postData("/php-backend/index.php", postDetails).then((dat) => {
+    console.log(postDetails);
+    this.postData(
+      "http://localhost:8000/php-backend/index.php",
+      postDetails
+    ).then((dat) => {
       if (dat.status !== "OK") {
         this.setState({
           ...this.state,

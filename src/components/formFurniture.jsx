@@ -3,9 +3,9 @@ import "./css/forms.css";
 class FurnitureForm extends Component {
   state = {
     inputError: {
-      height: "",
-      width: "",
-      length: "",
+      height: " ",
+      width: " ",
+      length: " ",
     },
   };
   heightId = "height";
@@ -26,7 +26,6 @@ class FurnitureForm extends Component {
       this.props.setError({ dimensions: "" });
       inputBox.classList.add("warner");
     } else {
-      this.setState({ ...this.state, inputError: "" });
       this.setState(
         {
           ...this.state,

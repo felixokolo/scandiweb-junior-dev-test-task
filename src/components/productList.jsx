@@ -38,6 +38,7 @@ class ProductList extends Component {
           <Product
             {...product}
             key={product.sku}
+            id={product.sku}
             addSelected={this.state.addSelected}
             removeSelected={this.state.removeSelected}
           />

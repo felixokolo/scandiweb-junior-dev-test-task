@@ -1,14 +1,11 @@
 <?php
-require_once __DIR__. "/include/db_config.php";
-
-
 class SQL_db
 {
   private static $db_connection = null;
 
-  public function __construct() {
+  public function __construct($DB_HOST, $DB_USER, $DB_PASSWORD, $DB_NAME) {
     //Attempt establishing a connection to the database using provided info
-    $this->$db_connection = $this->$db_connection?? new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
+    $this->$db_connection = $this->$db_connection?? new mysqli($DB_HOST, $DB_USER, $DB_PASSWORD, $DB_NAME);
     $errno = $this->$db_connection -> connect_errno;
 
     
@@ -29,23 +26,6 @@ class SQL_db
     else if ($result)
     return array("status" => "OK", "statusCode" => 200);
     else return array("status" => "Error", "statusCode" => 400, "message" => $e->getMessage());
-  }
-
-  public function get($sku) {
-    try {
-			$result = self::query_db("SELECT sku FROM products WHERE sku='{$sku}'");
-        if ($result)
-      {
-        return $result;
-      }
-      else
-        return NULL;
-    }
-    catch(Exception $e)
-    {
-      throw $e;
-    }
-
   }
   
 }
