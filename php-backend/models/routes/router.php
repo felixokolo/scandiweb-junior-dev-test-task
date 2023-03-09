@@ -1,7 +1,8 @@
 <?php
-require_once __DIR__. "/models/furniture.php";
-require_once __DIR__. "/models/DVD.php";
-require_once __DIR__. "/models/book.php";
+require_once __DIR__. "/../furniture.php";
+require_once __DIR__. "/../DVD.php";
+require_once __DIR__. "/../book.php";
+require_once __DIR__. "/../product.php";
 
 class Router {
 
@@ -13,7 +14,7 @@ class Router {
   }
   
 
-  static public function post($details) {
+  static public function postProducts($details) {
     $type = $details['type']?? NULL;
     $name = $details['name']?? NULL;
     $sku = $details['sku']?? NULL;
@@ -21,7 +22,11 @@ class Router {
 
     if ($type !== NULL) {
       $prop = $this->props[$type];
-      $prop['func']($sku, $name, $price)
+      $prop['func']($sku, $name, $price);
     }
+  }
+
+  static public function getProducts() {
+    return Product::getAll();
   }
 }

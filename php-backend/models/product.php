@@ -5,7 +5,7 @@ abstract class Product {
 	protected $sku;
 	protected $name;
 	protected $price;
-	protected $db;
+	static protected $db;
 
 	
 	public function __set($name, $value)
@@ -45,6 +45,18 @@ abstract class Product {
 		
 	}
 
+	public static function __callStatic($name, $args)
+	{
+		if (!isset(self::$db)) {
+			try {
+				self::$db = new SQL_db(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
+			}
+				catch(Exception $e) {
+				echo $e -> getMessage();
+			}
+		}
+	}
+
 	public function __get($name) {
 		return $this -> $name;
 	}
@@ -53,12 +65,7 @@ abstract class Product {
 		$this -> __set('sku', $sku);
 		$this -> __set('name', $name);
 		$this -> __set('price', $price);
-		try {
-			$this -> db = new SQL_db(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
-		}
-			catch(Exception $e) {
-			echo $e -> getMessage();
-		}
+		self::__callStatic("Product", NULL);
 	}
 
 	abstract function getDescription();
@@ -69,7 +76,7 @@ abstract class Product {
 
 		$res = NULL;
 		try {
-			$res = $this -> db -> get($this -> sku);
+			$res = self::$db -> get($this -> sku);
 			//error_log(json_encode($res));
 		}
 		catch (Exception $e)
@@ -79,24 +86,37 @@ abstract class Product {
 
 		if ($res === NULL)
 		{
-
 			try
 			{
 				$que = "INSERT INTO products (sku, name, price, type, description) VALUES ".
 				"('{$this -> sku}', '{$this -> name}', '{$this -> price}', '{$this -> type}', '{$this -> getDescription()}')";
-				$result = $this -> db -> query_db($que);
+				$result = self::$db -> query_db($que);
 				return $result;
 			}
-				catch (Exception $e)
-				{
-					return array("status" => "Error", "statusCode" => 400, "message" => $e->getMessage());
-				}
+			catch (Exception $e)
+			{
+				return array("status" => "Error", "statusCode" => 400, "message" => $e->getMessage());
+			}
 		}
 		else
 		{
 			return array("status" => "Error", "statusCode" => 400, "message" => 'SKU exists');
 		}
 	}
+
+	static public function getAll() {
+		$que = "SELECT * FROM products";
+		try {
+			$result = self::$db -> query_db($que);
+			return array("status" => "OK", "statusCode" => 200, "message" => $result);
+		}
+		catch (Exception $e)
+		{
+			return array("status" => "Error", "statusCode" => 400, "message" => $e->getMessage());
+		}
+	}
+
+
 
 
 }
