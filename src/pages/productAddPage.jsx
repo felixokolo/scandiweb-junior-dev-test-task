@@ -32,7 +32,6 @@ class ProductAddPage extends Component {
   addProduct = (e) => {
     e.preventDefault();
     const details = e.target;
-    console.log(details);
     let postDetails = {};
     let n = 2;
     while (details[n] !== undefined) {
@@ -53,7 +52,6 @@ class ProductAddPage extends Component {
       : null;
     postDetails.width = postDetails.width ? parseInt(postDetails.width) : null;
     postDetails.size = postDetails.size ? parseInt(postDetails.size) : null;
-    console.log(postDetails);
     this.postData("/php-backend/index.php", postDetails).then((dat) => {
       if (dat.status !== "OK") {
         this.setState({

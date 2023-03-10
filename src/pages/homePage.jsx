@@ -22,7 +22,6 @@ class HomePage extends Component {
       .then((res) => {
         if (res.status === 200) return res.json();
         else {
-          console.log("got status " + res.status);
           return JSON.parse("{'status': 500}");
         }
       })
@@ -36,7 +35,6 @@ class HomePage extends Component {
               products: ret.message,
             });
           } else {
-            console.log(ret.message);
           }
         },
         (error) => {
@@ -70,11 +68,8 @@ class HomePage extends Component {
       .then(
         (res) => {
           const ret = JSON.parse(res);
-          console.log(ret);
           if (ret.status === "OK") {
             this.fetchdb("/php-backend/index.php");
-          } else {
-            console.log("i don't know what happened");
           }
         },
         (error) => {}

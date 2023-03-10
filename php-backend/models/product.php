@@ -7,46 +7,56 @@ abstract class Product {
 	protected $price;
 	static protected $db;
 
+	// Abstract method for getting description of product type
+	abstract function getDescription();
+
 	
 	public function __set($name, $value)
 	{
-			switch ($name)
-			{
-				case 'sku':
-				case 'name':
-					if (gettype($value) !== 'string' || $value === '' || $value === null)
-						throw new Exception("Invalid {$name}");
-					else
-						$this->$name  = $value;
-					break;
-				case 'price':
-					if (gettype($value) !== 'double' || $value === null)
-						throw new Exception("Invalid {$name}");
-					else
-					{
-						$this->$name  = $value;
-					}
-					break;
-				case 'size':
-				case 'height':
-				case 'width':
-				case 'length':
-				case 'weight':
-					if ((gettype($value) !== 'integer' && gettype($value) !== 'double') || $value === null)
-						throw new Exception("Invalid {$name}");
-					else
-					{
-						$this->$name  = $value;
-					}
-					break;
-				
+		/**
+		 * Magic setter method
+		 */
+		switch ($name)
+		{
+			case 'sku':
+			case 'name':
+				if (gettype($value) !== 'string' || $value === '' || $value === null)
+					throw new Exception("Invalid {$name}");
+				else
+					$this->$name  = $value;
+				break;
+			case 'price':
+				if (gettype($value) !== 'double' || $value === null)
+					throw new Exception("Invalid {$name}");
+				else
+				{
+					$this->$name  = $value;
 				}
+				break;
+			case 'size':
+			case 'height':
+			case 'width':
+			case 'length':
+			case 'weight':
+				if ((gettype($value) !== 'integer' && gettype($value) !== 'double') || $value === null)
+					throw new Exception("Invalid {$name}");
+				else
+				{
+					$this->$name  = $value;
+				}
+				break;
+			
+			}
 
 		
 	}
 
 	public static function __callStatic($name, $args)
 	{
+		/**
+		 * Magic call static function to instantiate a databse 
+		 * connection object
+		 */
 		
 		if (!isset(self::$db)) {
 			try {
@@ -57,32 +67,37 @@ abstract class Product {
 			}
 		}
 		if ($name === 'getAll')
-		return self::getAll();
+			return self::getAll();
 		if ($name === 'delete_products')
-		return self::delete_products($args[0]);
+			return self::delete_products($args[0]);
 	}
 
 	public function __get($name) {
+		/**
+		 * Magic getter function
+		 */
 		return $this -> $name;
 	}
 
 	public function __construct($sku, $name, $price) {
+		/**
+		 * Creates an instance of a product
+		 */
 		$this -> __set('sku', $sku);
 		$this -> __set('name', $name);
 		$this -> __set('price', $price);
 		self::__callStatic("__construct", NULL);
 	}
 
-	abstract function getDescription();
-
-
 
 	public function save() {
+		/**
+		 * Function to save an instance to database
+		 */
 
 		$res = NULL;
 		try {
 			$res = self::$db -> get($this -> sku);
-			//error_log(json_encode($res));
 		}
 		catch (Exception $e)
 		{
@@ -110,8 +125,10 @@ abstract class Product {
 	}
 
 	static protected function getAll() {
-			error_log("gets here");
-			$que = "SELECT * FROM products";
+		/**
+		 * Gets all products in the products table;
+		 */
+		$que = "SELECT * FROM products";
 		try {
 			$result = self::$db -> query_db($que);
 			//error_log(json_encode($result));
@@ -124,6 +141,9 @@ abstract class Product {
 	}
 
 	static protected function delete_products($items) {
+		/**
+		 * Deletes selected items from the products database
+		 */
 		$params = array();
 					foreach ($items["selected"] as $val) {
 			array_push($params, "sku = '{$val}'");

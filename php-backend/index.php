@@ -13,5 +13,3 @@ $router = new Router($method, $route, $in);
 
 $res = $router->process();
 echo json_encode($res);
-
-//curl -H 'Content-Type: application/json' -X POST -d '{ "sku": "JVC2342", "name": "Alice and the wonder land", "price": 21.43, "type": "Book", "description": "Weight: 3KG"}' localhost:8000

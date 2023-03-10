@@ -11,10 +11,19 @@ class Router {
   private $route;
 
   public function __set($name, $value) {
+    /**
+     * Magic setter method;
+     */
     $this->$name = $value;
   }
 
   public function __construct($method, $route, $data) {
+    /**
+     * Constructs an instance of the router class
+     * method: eg GET or POST
+     * route: / or /delete
+     * data: data to post.
+     */
 
     $this->__set('method', $method);
     $this->__set('data', $data);
@@ -22,23 +31,17 @@ class Router {
   }
   
 
-  private function postProducts($details) {
-    $type = $details['type']?? NULL;
-    $name = $details['name']?? NULL;
-    $sku = $details['sku']?? NULL;
-    $price = $details['price']?? NULL;
-
-    if ($type !== NULL) {
-      $prop = $this->props[$type];
-      $prop['func']($sku, $name, $price);
-    }
-  }
-
   private function getProducts() {
+    /**
+     * Returns all products in the products table.
+     */
     return Product::getAll();
   }
 
   public function process() {
+    /**
+     * Processes the request based on the given method and route
+     */
     switch ($this->method) {
       case 'GET':
         return $this->getProducts();
@@ -86,7 +89,5 @@ class Router {
         break;
     }
   }
-
-
 
 }
