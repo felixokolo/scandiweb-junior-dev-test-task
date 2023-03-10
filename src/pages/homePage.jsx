@@ -19,15 +19,25 @@ class HomePage extends Component {
 
   fetchdb = (url) => {
     fetch(url)
-      .then((res) => res.text())
+      .then((res) => {
+        if (res.status === 200) return res.json();
+        else {
+          console.log("got status " + res.status);
+          return JSON.parse("{'status': 500}");
+        }
+      })
       .then(
-        (res) => {
-          this.setState({
-            ...this.state,
-            error: null,
-            isLoaded: true,
-            products: JSON.parse(res),
-          });
+        (ret) => {
+          if (ret.status === "OK") {
+            this.setState({
+              ...this.state,
+              error: null,
+              isLoaded: true,
+              products: ret.message,
+            });
+          } else {
+            console.log(ret.message);
+          }
         },
         (error) => {
           this.setState({ ...this.state, error: error, isLoaded: false });
@@ -36,7 +46,7 @@ class HomePage extends Component {
   };
 
   componentDidMount() {
-    this.fetchdb("http://localhost:8000/php-backend/index.php");
+    this.fetchdb("/php-backend/index.php");
     document
       .getElementById("delete-product-btn")
       .addEventListener("click", this.delete);
@@ -44,10 +54,10 @@ class HomePage extends Component {
 
   delete = (e) => {
     e.preventDefault();
-    Object.keys(this.state.selected).forEach((ele) => {
+    /* Object.keys(this.state.selected).forEach((ele) => {
       document.getElementById(ele).remove();
-    });
-    fetch("http://localhost:8000/php-backend/index.php/delete", {
+    }); */
+    fetch("/php-backend/index.php/delete", {
       crossDomain: true,
       method: "POST",
       headers: {
@@ -59,9 +69,12 @@ class HomePage extends Component {
       .then((res) => res.json())
       .then(
         (res) => {
-          if (res.status === "OK") {
-            this.fetchdb("http://localhost:8000/php-backend/index.php");
+          const ret = JSON.parse(res);
+          console.log(ret);
+          if (ret.status === "OK") {
+            this.fetchdb("/php-backend/index.php");
           } else {
+            console.log("i don't know what happened");
           }
         },
         (error) => {}

@@ -39,11 +39,22 @@ class ProductAddPage extends Component {
       postDetails[details[n].name] = details[n].value;
       n++;
     }
+    postDetails.price = postDetails.price
+      ? parseFloat(postDetails.price).toFixed(2)
+      : null;
+    postDetails.weight = postDetails.weight
+      ? parseInt(postDetails.weight)
+      : null;
+    postDetails.height = postDetails.height
+      ? parseInt(postDetails.height)
+      : null;
+    postDetails.length = postDetails.length
+      ? parseInt(postDetails.length)
+      : null;
+    postDetails.width = postDetails.width ? parseInt(postDetails.width) : null;
+    postDetails.size = postDetails.size ? parseInt(postDetails.size) : null;
     console.log(postDetails);
-    this.postData(
-      "http://localhost:8000/php-backend/index.php",
-      postDetails
-    ).then((dat) => {
+    this.postData("/php-backend/index.php", postDetails).then((dat) => {
       if (dat.status !== "OK") {
         this.setState({
           ...this.state,

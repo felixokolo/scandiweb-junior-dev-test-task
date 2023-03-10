@@ -47,6 +47,7 @@ abstract class Product {
 
 	public static function __callStatic($name, $args)
 	{
+		
 		if (!isset(self::$db)) {
 			try {
 				self::$db = new SQL_db(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
@@ -55,6 +56,10 @@ abstract class Product {
 				echo $e -> getMessage();
 			}
 		}
+		if ($name === 'getAll')
+		return self::getAll();
+		if ($name === 'delete_products')
+		return self::delete_products($args[0]);
 	}
 
 	public function __get($name) {
@@ -65,7 +70,7 @@ abstract class Product {
 		$this -> __set('sku', $sku);
 		$this -> __set('name', $name);
 		$this -> __set('price', $price);
-		self::__callStatic("Product", NULL);
+		self::__callStatic("__construct", NULL);
 	}
 
 	abstract function getDescription();
@@ -104,10 +109,12 @@ abstract class Product {
 		}
 	}
 
-	static public function getAll() {
-		$que = "SELECT * FROM products";
+	static protected function getAll() {
+			error_log("gets here");
+			$que = "SELECT * FROM products";
 		try {
 			$result = self::$db -> query_db($que);
+			//error_log(json_encode($result));
 			return array("status" => "OK", "statusCode" => 200, "message" => $result);
 		}
 		catch (Exception $e)
@@ -116,7 +123,15 @@ abstract class Product {
 		}
 	}
 
-
+	static protected function delete_products($items) {
+		$params = array();
+					foreach ($items["selected"] as $val) {
+			array_push($params, "sku = '{$val}'");
+		}
+		$que = "DELETE FROM products WHERE ". join(' OR ', $params);
+		$result = self::$db->query_db($que);
+		return json_encode($result);
+	}
 
 
 }
