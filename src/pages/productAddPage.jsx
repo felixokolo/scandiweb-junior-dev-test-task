@@ -23,6 +23,7 @@ class ProductAddPage extends Component {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "http://localhost:8000",
       },
 
       body: JSON.stringify(data),
@@ -52,7 +53,11 @@ class ProductAddPage extends Component {
       : null;
     postDetails.width = postDetails.width ? parseInt(postDetails.width) : null;
     postDetails.size = postDetails.size ? parseInt(postDetails.size) : null;
-    this.postData("/php-backend/index.php", postDetails).then((dat) => {
+
+    this.postData(
+      "/php-backend/index.php/post_" + postDetails.type.toLowerCase(),
+      postDetails
+    ).then((dat) => {
       if (dat.status !== "OK") {
         this.setState({
           ...this.state,

@@ -31,7 +31,7 @@ class Router {
   }
   
 
-  private function getProducts() {
+  public function getProducts() {
     /**
      * Returns all products in the products table.
      */
@@ -42,52 +42,43 @@ class Router {
     /**
      * Processes the request based on the given method and route
      */
-    switch ($this->method) {
-      case 'GET':
+    
+    $endpoints = [
+      '/get_products' => function () {
         return $this->getProducts();
-        break;
-      case 'POST':
-        
-        switch($this->route){
-          case '/':
-            switch ($this->data['type']){
-              case 'Furniture':
-                $furniture = new Furniture($this->data['sku'],
-                                           $this->data['name'],
-                                           floatval($this->data['price']),
-                                           $this->data['height'],
-                                           $this->data['width'],
-                                           $this->data['length'],);
-                return $furniture->save();
-                break;
-              case 'DVD':
-                $dvd = new DVD($this->data['sku'],
-                               $this->data['name'],
-                               floatval($this->data['price']),
-                               $this->data['size']);
+      },
+      '/post_dvd' => function () {
+        $dvd = new DVD(
+                        $this->data['sku'],
+                        $this->data['name'],
+                        floatval($this->data['price']),
+                        $this->data['size']);
                 return $dvd->save();
-                break;
-              case 'Book':
-                $book = new Book($this->data['sku'],
-                                 $this->data['name'],
-                                 floatval($this->data['price']),
-                                 $this->data['weight']);
-                return $book->save();
-                break;
-              default:
-                break;
-              }
-              break;
-            break;
-          case '/delete':
-            return Product::delete_products($this -> data);
-            break;
-          default:
-          break;
-          }
-      default:
-        break;
-    }
+      },
+      '/post_furniture' => function () {
+        $furniture = new Furniture(
+                                    $this->data['sku'],
+                                    $this->data['name'],
+                                    floatval($this->data['price']),
+                                    $this->data['height'],
+                                    $this->data['width'],
+                                    $this->data['length'],);
+        return $furniture->save();
+      },
+      '/post_book' => function () {
+        $book = new Book(
+                          $this->data['sku'],
+                          $this->data['name'],
+                          floatval($this->data['price']),
+                          $this->data['weight']);
+        return $book->save();
+      },
+      '/delete' => function () {
+        return Product::delete_products($this -> data);
+      }
+    ];
+
+    return $endpoints[$this->route]();
   }
 
 }

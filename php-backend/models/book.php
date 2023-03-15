@@ -11,7 +11,7 @@ class Book extends Product{
                               $weight)
   {
     parent::__construct($sku, $name, $price);
-    $this -> __set('weight', $weight);
+    $this -> setdetails('weight', $weight);
   }
 
   public function getDescription()

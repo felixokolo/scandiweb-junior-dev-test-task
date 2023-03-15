@@ -11,9 +11,9 @@ class Furniture extends Product{
                               $height, $width, $length)
   {
     parent::__construct($sku, $name, $price);
-    $this -> __set('height', $height);
-		$this -> __set('width', $width);
-		$this -> __set('length', $length);
+    $this -> setdetails('height', $height);
+		$this -> setdetails('width', $width);
+		$this -> setdetails('length', $length);
   }
 
   public function getDescription()

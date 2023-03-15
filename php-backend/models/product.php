@@ -10,46 +10,38 @@ abstract class Product {
 	// Abstract method for getting description of product type
 	abstract function getDescription();
 
-	
-	public function __set($name, $value)
-	{
-		/**
-		 * Magic setter method
-		 */
-		switch ($name)
-		{
-			case 'sku':
-			case 'name':
-				if (gettype($value) !== 'string' || $value === '' || $value === null)
-					throw new Exception("Invalid {$name}");
+	public function setname($value) {
+		if (gettype($value) !== 'string' || $value === '' || $value === null)
+					throw new Exception("Invalid name");
 				else
-					$this->$name  = $value;
-				break;
-			case 'price':
-				if (gettype($value) !== 'double' || $value === null)
-					throw new Exception("Invalid {$name}");
-				else
-				{
-					$this->$name  = $value;
-				}
-				break;
-			case 'size':
-			case 'height':
-			case 'width':
-			case 'length':
-			case 'weight':
-				if ((gettype($value) !== 'integer' && gettype($value) !== 'double') || $value === null)
-					throw new Exception("Invalid {$name}");
-				else
-				{
-					$this->$name  = $value;
-				}
-				break;
-			
-			}
-
-		
+					$this->name  = $value;
 	}
+
+	public function setsku($value) {
+		if (gettype($value) !== 'string' || $value === '' || $value === null)
+					throw new Exception("Invalid sku");
+				else
+					$this->sku  = $value;
+	}
+
+	public function setprice($value) {
+		if (gettype($value) !== 'double' || $value === null)
+					throw new Exception("Invalid price");
+				else
+				{
+					$this->price  = $value;
+				}
+	}
+
+	public function setdetails ($name, $value) {
+		if ((gettype($value) !== 'integer' && gettype($value) !== 'double') || $value === null)
+					throw new Exception("Invalid {$name}");
+				else
+				{
+					$this->$name  = $value;
+				}
+	}
+	
 
 	public static function __callStatic($name, $args)
 	{
@@ -83,9 +75,9 @@ abstract class Product {
 		/**
 		 * Creates an instance of a product
 		 */
-		$this -> __set('sku', $sku);
-		$this -> __set('name', $name);
-		$this -> __set('price', $price);
+		$this -> setsku($sku);
+		$this -> setname($name);
+		$this -> setprice($price);
 		self::__callStatic("__construct", NULL);
 	}
 
@@ -103,6 +95,7 @@ abstract class Product {
 		{
 			error_log($e -> getMessage());
 		}
+
 
 		if ($res === NULL)
 		{
@@ -131,7 +124,6 @@ abstract class Product {
 		$que = "SELECT * FROM products";
 		try {
 			$result = self::$db -> query_db($que);
-			//error_log(json_encode($result));
 			return array("status" => "OK", "statusCode" => 200, "message" => $result);
 		}
 		catch (Exception $e)
@@ -150,7 +142,7 @@ abstract class Product {
 		}
 		$que = "DELETE FROM products WHERE ". join(' OR ', $params);
 		$result = self::$db->query_db($que);
-		return json_encode($result);
+		return $result;
 	}
 
 

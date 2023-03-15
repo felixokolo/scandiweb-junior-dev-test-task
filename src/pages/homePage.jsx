@@ -44,7 +44,7 @@ class HomePage extends Component {
   };
 
   componentDidMount() {
-    this.fetchdb("/php-backend/index.php");
+    this.fetchdb("/php-backend/index.php/get_products");
     document
       .getElementById("delete-product-btn")
       .addEventListener("click", this.delete);
@@ -52,9 +52,6 @@ class HomePage extends Component {
 
   delete = (e) => {
     e.preventDefault();
-    /* Object.keys(this.state.selected).forEach((ele) => {
-      document.getElementById(ele).remove();
-    }); */
     fetch("/php-backend/index.php/delete", {
       crossDomain: true,
       method: "POST",
@@ -67,9 +64,8 @@ class HomePage extends Component {
       .then((res) => res.json())
       .then(
         (res) => {
-          const ret = JSON.parse(res);
-          if (ret.status === "OK") {
-            this.fetchdb("/php-backend/index.php");
+          if (res.status === "OK") {
+            this.fetchdb("/php-backend/index.php/get_products");
           }
         },
         (error) => {}
